@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_215127) do
     t.text "description"
     t.string "author"
     t.string "publisher"
+    t.string "genre"
     t.date "release_date"
     t.integer "edition"
     t.datetime "created_at", precision: 6, null: false
