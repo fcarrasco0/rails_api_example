@@ -40,7 +40,14 @@ RSpec.describe "Books", type: :request do
       post '/api/v1/books', params: {book: book_params}
       
       expect(response).to have_http_status(201)
+      
       expect(json_response.keys).to match_array(book_keys)
+      expect(json_response[:title]).to match(book_params[:title])
+      expect(json_response[:author]).to match(book_params[:author])
+      expect(json_response[:publisher]).to match(book_params[:publisher])
+      expect(json_response[:genre]).to match(book_params[:genre])
+      
+
     end
   end
 
@@ -53,6 +60,7 @@ RSpec.describe "Books", type: :request do
       put '/api/v1/books/1', params: {book: update_params}
 
       expect(response).to have_http_status(200)
+
       expect(json_response.keys).to match_array(book_keys)
       expect(json_response[:title]).to eql('Ruby On Rails')
 
@@ -67,7 +75,6 @@ RSpec.describe "Books", type: :request do
 
       expect(response).to have_http_status(200)
 
-      #verifying if json response has all keys
       expect(json_response.keys).to match_array(:message) 
       expect(json_response[:message]).to eql('Book destroyed with success!')
       
