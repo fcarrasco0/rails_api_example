@@ -6,7 +6,7 @@ module Api::V1
     def index
       @books = Book.all
 
-      render json: @books
+      render json:  @books, status: 200
     end
 
     # GET /books/1
@@ -37,7 +37,7 @@ module Api::V1
     # DELETE /books/1
     def destroy
       @book.destroy
-      msg = { :message => "Book Destroyed successfully!" }
+      msg = { :message => "Book destroyed with success!" }
       render json: msg
     end
 

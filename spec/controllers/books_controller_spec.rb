@@ -23,17 +23,17 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe BooksController, type: :controller do
+RSpec.describe Api::V1::BooksController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Book. As you add validations to Book, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    skip({title: "created_title", author: "created_author", publisher: "created_publisher", genre: "created_genre"})
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    skip({title: "cr", author: "crea"})
   }
 
   # This should return the minimal set of values that should be in the session
@@ -42,11 +42,20 @@ RSpec.describe BooksController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
+    before do
+      get :index, params: {}, session: valid_session
+    end
+
     it "returns a success response" do
       book = Book.create! valid_attributes
-      get :index, params: {}, session: valid_session
-      expect(response).to be_successful
+      expect(response).to have_http_status(:succes)
     end
+
+    # it "JSON body response contains expected book attributes" do
+    #   json_response = JSON.parse(response.body)
+    #   expect(json_response.keys).to match_array([:id, :title, :description, :author, :publisher, :release_date, :edition, :genre])
+  
+    # end
   end
 
   describe "GET #show" do
