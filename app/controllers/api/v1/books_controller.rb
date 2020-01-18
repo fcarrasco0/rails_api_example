@@ -1,6 +1,8 @@
 module Api::V1
   class BooksController < ApplicationController
     before_action :set_book, only: [:show, :update, :destroy]
+    before_action :set_types, only: [:validate_types, :get_type_names, :books_by]
+    before_action :parse_name, only: [:books_by]
 
     # GET /books
     def index
@@ -41,41 +43,71 @@ module Api::V1
       render json: msg
     end
 
-    def order
-      @books = Book.order(:order).all
+    # orders books by sort requested /books/order/title
+    def order_by
 
-      render json:  @books, status: 200
+      if params[:sort] == 'description'
+        msg = { 
+          message: "Description is not a valid request order.",
+          status: 400
+        }
+        render json: msg
+      else
+        @books = Book.order(params[:sort])
+
+        render json:  @books, status: 200
+      end
     end
     
+    # return array with names of the type /genre
+    def get_type_names
 
-    def genres
-      render json: "Yes"
+      if validate_type == 200
+        grouped = Book.select("#{@params_type}").group(@params_type)
+
+        render json: grouped
+      end
+    end
+  
+    # check if type requested is a valid type defined in set_types
+    def validate_type
+      
+      if @valid_types.include?(@params_type)
+        return 200
+      else
+        msg = {
+          message: "this is not a valid type.\nvalid types are: #{@valid_types}, your type was '#{@params_type}'",
+          status: 400
+        }
+
+        render json: msg
+      end
     end
 
-    def books_by_genre
-      @books = Book.where("genre = '#{params[:genre]}'")
-
-      if @books.length > 0
-        render json:  @books, status: 200  
-      else
-        render json: {
-                message: "no books found probably because this genre don't exist",
-                status: 401
-              }
+    # Call books_group_by if type requested ok /books_by/author/Stephen_King
+    def books_by
+      
+      if validate_type == 200
+        books_group_by(@params_type, @params_name)
       end
       
     end
 
-    def authors
-    end
-    
-    def books_by_author
-    end
+    # return array of books grouped by type and name requested
+    def books_group_by(type, name)
+      @books = Book.where("#{type} = '#{name}'")
 
-    def publishers
-    end
-    
-    def books_by_publisher
+        if @books.length > 0
+          render json:  @books, status: 200  
+        else
+          msg = {
+            message: "#{type} with name:'#{name}' not found.\nplease check your writing or the word used.",
+            status: 400
+          }
+
+          render json: msg
+        end
+
     end
     
 
@@ -85,9 +117,20 @@ module Api::V1
         @book = Book.find(params[:id])
       end
 
+      def parse_name
+        @params_name = params[:name].split(/_/)
+        @params_name = @params_name.join(" ")
+      end
+      
+      def set_types
+        @valid_types = ['author', 'genre', 'publisher']
+        @params_type = params[:type]
+      end
+
       # Only allow a trusted parameter "white list" through.
       def book_params
         params.require(:book).permit(:title, :description, :author, :publisher, :release_date, :edition, :genre)
       end
+
   end
 end

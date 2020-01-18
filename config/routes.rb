@@ -4,10 +4,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :books
 
-      get '/books/order/:order', to: 'books#order'
-
-      get '/genres/', to: 'books#genres'
-      get '/genres/:genre', to: 'books#books_by_genre'
+      get '/books/order/:sort', to: 'books#order_by'
+      get '/:type', to: 'books#get_type_names'
+      get '/books_by/:type/:name', to: 'books#books_by'
     end
   end
 
