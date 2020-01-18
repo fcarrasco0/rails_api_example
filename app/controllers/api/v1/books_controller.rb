@@ -41,6 +41,44 @@ module Api::V1
       render json: msg
     end
 
+    def order
+      @books = Book.order(:order).all
+
+      render json:  @books, status: 200
+    end
+    
+
+    def genres
+      render json: "Yes"
+    end
+
+    def books_by_genre
+      @books = Book.where("genre = '#{params[:genre]}'")
+
+      if @books.length > 0
+        render json:  @books, status: 200  
+      else
+        render json: {
+                message: "no books found probably because this genre don't exist",
+                status: 401
+              }
+      end
+      
+    end
+
+    def authors
+    end
+    
+    def books_by_author
+    end
+
+    def publishers
+    end
+    
+    def books_by_publisher
+    end
+    
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_book
