@@ -1,0 +1,44 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/books":
+    post:
+      summary: Creates a book
+      tags:
+      - Books
+      consumes:
+      - application/json
+      - application/xml
+      parameters:
+      - name: book
+        in: body
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+            description:
+              type: text
+            author:
+              type: string
+            publisher:
+              type: string
+            genre:
+              type: string
+            release_date:
+              type: date
+            edition:
+              type: integer
+          required:
+          - title
+          - author
+          - publisher
+          - genre
+      responses:
+        '201':
+          description: book created
+        '422':
+          description: invalid request
