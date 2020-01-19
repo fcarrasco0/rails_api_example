@@ -102,7 +102,7 @@ module Api::V1
         else
           msg = {
             message: "#{type} with name:'#{name}' not found.\nplease check your writing or the word used.",
-            status: 400
+            status: :not_found
           }
 
           render json: msg
@@ -115,6 +115,10 @@ module Api::V1
       # Use callbacks to share common setup or constraints between actions.
       def set_book
         @book = Book.find(params[:id])
+      rescue ActiveRecord::RecordNotFound 
+        render json: {
+          error: "Book not found.\nPlease check the id requested."
+        }, status: :not_found
       end
 
       def parse_name
