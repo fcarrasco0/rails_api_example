@@ -1,35 +1,50 @@
-# README
+# About this Project
+  
+  ## Introduction
+    This projects aims to be an api example to learn about Rails setup and development.
+    It is a book's collection RESTfull api with some other routes for filtering specific group of books and another for sort the search by a book's attribute. 
+    More details up ahead.
+   
+  ## Dependencies
 
-# Testando
-This README would normally document whatever steps are necessary to get the
-application up and running.
+    Tool | Version Used
+    ------------ | -------------
+    Ruby | 2.7.0
+    Ruby On Rails | 6.0.2.1
 
-Things you may want to cover:
+    ### gems used:
 
-Introduction
+      * Used for tests:
+        - gem 'rspec-rails'
+        - gem "factory_bot_rails"
 
-This projects aims to be:
+      * gem 'faker' (used to create seeder)
 
-    An api example to discuss about Rails setup and development.
-    A basic template to start projects from it.
+      * gem 'json' (for treating some json files)
 
+      * gem 'rswag' (for generating some documentation file with swagger.ui)
 
-* Ruby version
-  - ruby version and rails
-
-* System dependencies
- - gems installed
-
-* Configuration
+      **OBS: this last one is not implemented right in this project yet.**
 
 
-* Database creation
-  db:migrate
-  db:seed
+    ### Tests
+      The file used for some tests is found in spec/requests/books_spec.rb and spec/integration/books_spec.rb (this last one for generating the swagger doc with rswag)
 
-* How to run the test suite
-  - use rspecs commands
+      To execute the tests use the command `bundle exec rspec spec/requests/books_spec.rb` inside the project's folder.
+    
 
-* How to consume the routes
+    ### Database Seeder
+      db:seed
 
-* ...
+# Getting Started
+
+```json
+  {
+	  "title": "Book Title",
+	  "author": "Book Author",
+	  "publisher": "Book Publisher",
+	  "release_date": "yyyy-mm-dd",
+	  "genre": "Book Genre",
+	  "edition": 1
+  }
+```
