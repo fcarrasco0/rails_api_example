@@ -119,7 +119,7 @@ To do so, use the following URI:
 ```
 GET http://localhost:3000/api/v1/books/orderBy/attribute
 ```
-example of response of `http://localhost:3000/api/v1/books/orderBy/title`:
+example of response for `GET http://localhost:3000/api/v1/books/orderBy/title`:
 ```json
 [
   {
@@ -174,7 +174,7 @@ if you try to sort by description you will get the following response:
 GET http://localhost:3000/api/v1/books/id
 ```
 
-example of response of `http://localhost:3000/api/v1/books/1`:
+example of response for `GET http://localhost:3000/api/v1/books/1`:
 ```json
 {
   "id": 1,
@@ -203,7 +203,7 @@ To create a new book you must make a request to the following URI
 POST http://localhost:3000/api/v1/books/
 ```
 The body of the request must contain the book's attributes and respective values.
-The **`'title', 'author', 'publisher' and 'genre'`** attributes are necessary to create a new book. Also the `'author'`need to be at least 5 characters long and `'title'` and `'genre'` need to have at least 3 characters.
+The **`'title', 'author', 'publisher'`** and **`'genre'`** attributes are necessary to create a new book. Also the `'author'`need to be at least 5 characters long and `'title'` and `'genre'` need to have at least 3 characters.
 Example of a valid request body:
 ```json
   {
@@ -260,7 +260,7 @@ To update a book make a request passing the attribute you wish to change in the 
 `PUT http://localhost:3000/api/v1/books/23` and body containing:
 ```json
 {
-    'description': 'updated the book description'
+    "description": "updated the book description"
 }
 ```
 The successful response is:
@@ -368,7 +368,7 @@ For example if I request `http://localhost:3000/api/v1/books/groupBy/author` the
 If by any chance `type` is replaced by another parameter not between `[author, genre, publisher]` the response will be:
 ```json
 {
-  "message": "this is not a valid type. Valid types are: [\"author\", \"genre\", \"publisher\"], your type was 'aut'",
+  "message": "this is not a valid type. Valid types are: [\"author\", \"genre\", \"publisher\"], your type was 'title'",
   "status": 400
 }
 ```
@@ -377,7 +377,7 @@ If by any chance `type` is replaced by another parameter not between `[author, g
 ```
 GET http://localhost:3000/api/v1/books/groupBy/type/name
 ```
-To recover all books of a certain author, genre or publisher the `type` in the URI by one of `[author, genre, publisher]` and the `name` parameter by the name of the author, genre or publisher. If the name parameter has more than one word, the spaces between words should be replaced by an underline, for example if the author name is **"Douglas Adams"** you should write as `Douglas_Adams`.
+To recover all books of a certain **author, genre or publisher** the `type` in the URI must be replaced by one of `[author, genre, publisher]` and the `name` parameter replaced by the **name** of the **author, genre or publisher**. If the name parameter has **more than one word**, the spaces between words should be replaced by an underline, for example if the author name is **"Douglas Adams"** you should write as `Douglas_Adams`.
 Example:
 ```
 GET http://localhost:3000/api/v1/books/groupBy/author/Stephen_King
@@ -457,12 +457,12 @@ If an invalid name is requested, the response is:
   "status": "not_found"
 }
 ```
-Where 'type' is the `type` parameter and 'invalid name' the invalid name requested
-If I request:
+Where 'type' is the `type` parameter and `'invalid name'` the invalid requested name.
+For example, if the request is:
 ```
 GET http://localhost:3000/api/v1/books/groupBy/author/King_Stephen
 ```
-Would get the message:
+Then the message would be:
 ```json
 {
   "message": "author with name:'King Stephen' not found. Please check your writing or the word used.",
