@@ -65,7 +65,7 @@ Next go inside the folder and execute the following command:
 After the installation has finished run: `rails server` and you will be able to access the project via `http://localhost:3000` for local testings.
 
 ## Endpoints
-In this API you will be able to:
+With this API you will be able to:
 
 * List all Books
 * List all Books sorted by an attribute
