@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   
   # mount Rswag::Ui::Engine => '/v1/api-docs'
   # mount Rswag::Api::Engine => '/v1/api-docs'
+  
+  root :to => redirect("api/v1/books")
+
   namespace :api do
     namespace :v1 do
       resources :books
