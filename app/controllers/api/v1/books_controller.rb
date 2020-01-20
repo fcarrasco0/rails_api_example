@@ -76,7 +76,7 @@ module Api::V1
         return 200
       else
         msg = {
-          message: "this is not a valid type.\nvalid types are: #{@valid_types}, your type was '#{@params_type}'",
+          message: "this is not a valid type. Valid types are: #{@valid_types}, your type was '#{@params_type}'",
           status: 400
         }
 
@@ -101,7 +101,7 @@ module Api::V1
           render json:  @books, status: 200  
         else
           msg = {
-            message: "#{type} with name:'#{name}' not found.\nplease check your writing or the word used.",
+            message: "#{type} with name:'#{name}' not found. Please check your writing or the word used.",
             status: :not_found
           }
 
@@ -117,7 +117,7 @@ module Api::V1
         @book = Book.find(params[:id])
       rescue ActiveRecord::RecordNotFound 
         render json: {
-          error: "Book not found.\nPlease check the id requested."
+          error: "Book not found. Please check the id requested."
         }, status: :not_found
       end
 
