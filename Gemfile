@@ -51,4 +51,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'json'
 
 # Documentation with swagger
-gem 'rswag'
+# gem 'rswag'

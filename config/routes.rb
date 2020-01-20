@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  mount Rswag::Ui::Engine => '/v1/api-docs'
-  mount Rswag::Api::Engine => '/v1/api-docs'
+  # mount Rswag::Ui::Engine => '/v1/api-docs'
+  # mount Rswag::Api::Engine => '/v1/api-docs'
   namespace :api do
     namespace :v1 do
       resources :books
