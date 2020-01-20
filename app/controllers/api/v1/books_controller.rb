@@ -39,24 +39,20 @@ module Api::V1
     # DELETE /books/1
     def destroy
       @book.destroy
-      msg = { :message => "Book destroyed with success!" }
-      render json: msg
+      render json: { message: "Book destroyed with success!" }, status: :ok
     end
 
     # orders books by sort requested /books/order/title
     def order_by
 
       if params[:sort] == 'description'
-        msg = { 
-          message: "Description is not a valid request order.",
-          status: 400
-        }
-        render json: msg
+        bad_request(1, params[:sort])
       else
         @books = Book.order(params[:sort])
-
         render json:  @books, status: 200
       end
+    rescue
+      bad_request(1, params[:sort])
     end
     
     # return array with names of the type /genre
@@ -75,12 +71,7 @@ module Api::V1
       if @valid_types.include?(@params_type)
         return 200
       else
-        msg = {
-          message: "this is not a valid type. Valid types are: #{@valid_types}, your type was '#{@params_type}'",
-          status: 400
-        }
-
-        render json: msg
+        bad_request(2, @params_type)
       end
     end
 
@@ -101,11 +92,9 @@ module Api::V1
           render json:  @books, status: 200  
         else
           msg = {
-            message: "#{type} with name:'#{name}' not found. Please check your writing or the word used.",
-            status: :not_found
+            message: "#{type} with name:'#{name}' not found. Please check your writing or the word used."
           }
-
-          render json: msg
+          render json: msg, status: :not_found
         end
 
     end
@@ -136,5 +125,19 @@ module Api::V1
         params.require(:book).permit(:title, :description, :author, :publisher, :release_date, :edition, :genre)
       end
 
+      def bad_request(number, entity)
+
+        case number
+        when 1
+          render json: { message: "'#{entity}' is not a valid request order." }, status: :bad_request 
+        when 2
+          msg = {
+            message: "this is not a valid type. Valid types are: #{@valid_types}, your type was '#{@params_type}'"
+          }
+
+          render json: msg, status: :bad_request
+        end
+      end
+      
   end
 end

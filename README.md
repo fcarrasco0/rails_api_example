@@ -2,7 +2,7 @@
   
   ## Introduction
   This projects aims to be an api example developed to learn about Rails setup and development.
-  It is a book's collection RESTfull api with some other routes for filtering specific groups of books and another for sort the search by a book's attribute. 
+  It is a book's collection RESTfull api. 
   More details up ahead.
    
   ## Dependencies
@@ -18,13 +18,9 @@
   * gem "factory_bot_rails" (used for tests)
   * gem 'faker' (used to create seeder)
   * gem 'json' (for treating some json files)
-  * gem 'rswag' (for generating some documentation file with swagger.ui)
-
-  **OBS: this last one is not implemented right in this project yet.**
-
 
   ### Tests
-  The file used for some tests is found in spec/requests/books_spec.rb and spec/integration/books_spec.rb (this last one for generating the swagger doc with rswag)
+  The file used for tests can be found in spec/requests/books_spec.rb.
 
   To execute the tests use the command `bundle exec rspec spec/requests/books_spec.rb` inside the project's folder.
 
@@ -35,10 +31,10 @@
   Execute the following commands inside the project's folder.
   
   * Create database: `rails db:migrate`
-  * Run the seeder execute this command `rails db:seed`
+  * Run the seeder with `rails db:seed`
 
 # Getting Started
-In this project we will be working with a book collection and a book object.
+In this project we will be working with a book collection.
 The book object has the following attributes:
 ```json
  "book" {
@@ -57,7 +53,7 @@ The book object has the following attributes:
 ## Running the project
 
 Cloning the project on the selected folder:
-    `git clone https://github.com/fcarrasco0/rails_api_example.git`
+`git clone https://github.com/fcarrasco0/rails_api_example.git`
 
 Next go inside the folder and execute the following command:
 `bundle install`
@@ -81,7 +77,7 @@ To list all books on the database simple make a request to:
 ```
 GET http://localhost:3000/api/v1/books
 ```
-example of response:
+response example:
 
 ```json
 [
@@ -97,7 +93,7 @@ example of response:
     "created_at": "2020-01-18T19:37:05.107Z",
     "updated_at": "2020-01-18T19:37:05.107Z"
   }, 
-  ...
+  "..."
   {
     "id": 100,
     "title": "Oh! To be in England",
@@ -119,7 +115,7 @@ To do so, use the following URI:
 ```
 GET http://localhost:3000/api/v1/books/orderBy/attribute
 ```
-example of response for `GET http://localhost:3000/api/v1/books/orderBy/title`:
+response example for `GET http://localhost:3000/api/v1/books/orderBy/title`:
 ```json
 [
   {
@@ -157,15 +153,14 @@ example of response for `GET http://localhost:3000/api/v1/books/orderBy/title`:
     "edition": 1,
     "created_at": "2020-01-19T12:52:41.330Z",
     "updated_at": "2020-01-19T12:52:41.330Z"
-  }, ...
+  }, "..."
 ]
 ```
 
 if you try to sort by description you will get the following response:
 ```json
 {
-  "message": "Description is not a valid request order.",
-  "status": 400
+  "message": "Description is not a valid request order."
 }
 ```
 
@@ -174,7 +169,7 @@ if you try to sort by description you will get the following response:
 GET http://localhost:3000/api/v1/books/id
 ```
 
-example of response for `GET http://localhost:3000/api/v1/books/1`:
+response example for `GET http://localhost:3000/api/v1/books/1`:
 ```json
 {
   "id": 1,
@@ -204,7 +199,7 @@ POST http://localhost:3000/api/v1/books/
 ```
 The body of the request must contain the book's attributes and respective values.
 The **`'title', 'author', 'publisher'`** and **`'genre'`** attributes are necessary to create a new book. Also the `'author'`need to be at least 5 characters long and `'title'` and `'genre'` need to have at least 3 characters.
-Example of a valid request body:
+Valid request body example:
 ```json
   {
 	  "title": "Book Title",
@@ -298,7 +293,7 @@ Like `Get a single book` and `Update book` cases, if the requested id is invalid
 GET http://localhost:3000/api/v1/books/groupBy/type
 ```
 To recover all authors, genres or publisher recorded in the database you should replace the `type` in the URI by one of the following `[author, genre, publisher]`.
-For example if I request `http://localhost:3000/api/v1/books/groupBy/author` the response will be:
+For example if a request `http://localhost:3000/api/v1/books/groupBy/author` is made, the response will be:
 
 ```json
 [
@@ -368,8 +363,7 @@ For example if I request `http://localhost:3000/api/v1/books/groupBy/author` the
 If by any chance `type` is replaced by another parameter not between `[author, genre, publisher]` the response will be:
 ```json
 {
-  "message": "this is not a valid type. Valid types are: [\"author\", \"genre\", \"publisher\"], your type was 'title'",
-  "status": 400
+  "message": "this is not a valid type. Valid types are: [\"author\", \"genre\", \"publisher\"], your type was 'title'"
 }
 ```
 
@@ -453,8 +447,7 @@ If an invalid name is requested, the response is:
 
 ```json
 {
-  "message": "type with name:'invalid name' not found. Please check your writing or the word used.",
-  "status": "not_found"
+  "message": "type with name:'invalid name' not found. Please check your writing or the word used."
 }
 ```
 Where 'type' is the `type` parameter and `'invalid name'` the invalid requested name.
@@ -465,8 +458,7 @@ GET http://localhost:3000/api/v1/books/groupBy/author/King_Stephen
 Then the message would be:
 ```json
 {
-  "message": "author with name:'King Stephen' not found. Please check your writing or the word used.",
-  "status": "not_found"
+  "message": "author with name:'King Stephen' not found. Please check your writing or the word used."
 }
 ```
 
