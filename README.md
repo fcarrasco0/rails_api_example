@@ -56,7 +56,7 @@ The book object has the following attributes:
 
 ## Running the project
 
-Cloning the project on the selected file:
+Cloning the project on the selected folder:
     `git clone https://github.com/fcarrasco0/rails_api_example.git`
 
 Next go inside the folder and execute the following command:
