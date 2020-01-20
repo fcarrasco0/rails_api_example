@@ -42,7 +42,7 @@ module Api::V1
       render json: { message: "Book destroyed with success!" }, status: :ok
     end
 
-    # orders books by sort requested /books/order/title
+    # orders books by sort requested /books/orderBy/title
     def order_by
 
       if params[:sort] == 'description'
@@ -55,7 +55,7 @@ module Api::V1
       bad_request(1, params[:sort])
     end
     
-    # return array with names of the type /genre
+    # return array with names of the type /books/groupBy/genre
     def get_type_names
 
       if validate_type == 200
@@ -75,13 +75,11 @@ module Api::V1
       end
     end
 
-    # Call books_group_by if type requested ok /books_by/author/Stephen_King
+    # Call books_group_by if type requested ok /books/groupBy/author/Stephen_King
     def books_by
-      
       if validate_type == 200
         books_group_by(@params_type, @params_name)
-      end
-      
+      end  
     end
 
     # return array of books grouped by type and name requested
