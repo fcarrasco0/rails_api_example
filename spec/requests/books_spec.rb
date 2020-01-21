@@ -8,7 +8,7 @@ RSpec.describe "Books", type: :request do
       get '/api/v1/books'
     end
     
-    it "returns 200 if with books array" do
+    it "returns 200 if response equal books' array" do
       expect(response).to have_http_status(200)
     end
 
@@ -29,7 +29,7 @@ RSpec.describe "Books", type: :request do
       expect(response).to have_http_status(200)
     end
 
-    it "checks if json_response a book object" do
+    it "checks if json_response is a book object" do
       expect(json_response.keys).to match_array(book_keys)  
     end
     
