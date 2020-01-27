@@ -44,9 +44,7 @@ The book object has the following attributes:
 	  "publisher": "Type: String",
 	  "release_date": "type: yyyy-mm-dd",
 	  "genre": "Type: String",
-	  "edition": "Type: Integer",
-	  "created_at": "type: timestamps",
-	  "updated_at": "type: timestamps"
+	  "edition": "Type: Integer"
   }
 ```
 
