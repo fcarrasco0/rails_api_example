@@ -81,7 +81,7 @@ module Api::V1
 
     # return array of books grouped by type and name requested
     def books_group_by(type, name)
-      @books = Book.where("#{type} = '#{name}'")
+      @books = Book.where(type => name)
 
       if @books.length > 0
         render json:  @books, status: 200  
@@ -115,6 +115,7 @@ module Api::V1
         @params_type = params[:type]
       end
 
+      #refatorar 
       def bad_request(number, entity)
         case number
         when 1
